@@ -1,0 +1,44 @@
+@import '../../styles/errorMessage.scss';
+@import '../../styles/successMessage.scss';
+
+
+.root {
+  margin: 0 20px;
+  padding: 20px 0;
+  
+  .error {
+    color: #f00;
+    padding: 5px 10px;
+    background: #FFC3C3;
+    font-size: 14px;
+  }
+  
+  .btnSubmitContainer {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+
+    .btnSubmit {
+      color: inherit;
+    }
+    
+    .forgotPassword {
+      margin: 0;
+      align-self: center;
+      text-align: right;
+      flex-grow: 1;
+    }
+  }
+  
+  .instructionsContainer {
+    
+  }
+}
+
+.main-body-primary {
+  padding-top: 50px !important;
+}
+
+.card-action {
+	padding: 30px 0px 0px !important;
+}

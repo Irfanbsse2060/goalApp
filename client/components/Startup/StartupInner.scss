@@ -1,0 +1,21 @@
+.root {
+  
+}
+
+.actionContainer {
+  text-align: right;
+
+  & > * {
+    margin: 2rem;
+  }
+}
+
+.divider-pipe {
+  color: #999;
+  padding-left: 8px;
+}
+
+.divider-pipe:after {
+  content: "|";
+  padding-right: 8px;
+}
