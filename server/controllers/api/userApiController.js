@@ -32,8 +32,8 @@ router.post('/api/login', ensureAnonymity, (req, res) => {
 
     findUserByEmail(email)
         .then(user => {
-            console.log("Role id of "+user.firstName+" "+user.lastName+" is" +user.roleId);
             if (user) {
+                console.log("Role id of "+user.firstName+" "+user.lastName+" is" +user.roleId);
                 const decryptedPassword = decrypt(user.password)
                 if (password === decryptedPassword) {
                     isActiveUser(user.id)
