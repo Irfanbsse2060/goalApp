@@ -179,6 +179,47 @@ export function resetPassword(token, password, confirmPassword) {
 }
 
 
+export const USER_CHANGE_PASSWORD = 'USER_CHANGE_PASSWORD'
+export const USER_CHANGE_PASSWORD_SUCCESS = 'USER_CHANGE_PASSWORD_SUCCESS'
+export const USER_CHANGE_PASSWORD_FAILURE = 'USER_CHANGE_PASSWORD_FAILURE'
+
+export function changePassword(oldPassword,password,confirmPassword) {
+    debugger;
+    return {
+        [CALL_API]: {
+            types: [
+                USER_CHANGE_PASSWORD,
+                USER_CHANGE_PASSWORD_SUCCESS,
+                USER_CHANGE_PASSWORD_FAILURE
+            ],
+            endpoint: `/api/users/change-password`,
+            method: 'POST'
+        },
+        payload: {oldPassword,password,confirmPassword}
+    }
+}
+
+export const USER_CHANGE_NAME = 'USER_CHANGE_NAME'
+export const USER_CHANGE_NAME_SUCCESS = 'USER_CHANGE_NAME_SUCCESS'
+export const USER_CHANGE_NAME_FAILURE = 'USER_CHANGE_NAME_FAILURE'
+
+export function changeUsername(firstName,lastName,userId) {
+    return {
+        [CALL_API]: {
+            types: [
+                USER_CHANGE_NAME,
+                USER_CHANGE_NAME_SUCCESS,
+                USER_CHANGE_NAME_FAILURE
+            ],
+            endpoint: `/api/users/change-username`,
+            method: 'POST'
+        },
+        payload: {firstName,lastName,userId},
+        firstName : firstName,
+        lastName : lastName,
+        userId : userId,
+    }
+}
 
 
 

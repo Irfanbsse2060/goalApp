@@ -25,6 +25,8 @@ import {
     PageRegister,
     PageForgotPassword,
     PageResetPassword,
+    PageChangePassword,
+    PageUserProfile,
     PageAdminDashboard,
     PageDashboard,
   Page404,
@@ -84,9 +86,20 @@ export default class App extends React.Component {
                       />
                       <PrivateRoute
                           exact
+                          path="/changePassword"
+                          component={PageChangePassword}
+                      />
+                      <PrivateRoute
+                          exact
                           path="/dashboard"
                           component={PageAdminDashboard}
                       />
+                      <PrivateRoute
+                          exact
+                          path="/userProfile"
+                          component={PageUserProfile}
+                      />
+
                       <PrivateRoute
                           exact
                           path="/userDashboard"

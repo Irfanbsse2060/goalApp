@@ -108,6 +108,18 @@ export const insertUser = (userObj) =>
             return obj
         })
 
+
+export const changeUserName = (firstName,lastName,userId) => {
+    return User.update({
+            firstName : firstName,
+            lastName : lastName
+        },
+        {
+            where : {id : userId}
+        })
+}
+
+
 export const updateUser = (userObj) =>
     userObj.save()
         .then(obj => {

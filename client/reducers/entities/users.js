@@ -20,6 +20,13 @@ export default function users(state = {}, action) {
    /*   case ActionTypes.USER_LOGIN_FAILURE: {
           return {...state, isLoading: false}
       }*/
+
+      case ActionTypes.USER_CHANGE_NAME_SUCCESS: {
+          const { payload,firstName,lastName,userId} = action
+          return {...state, [userId]: {...state[userId], firstName: firstName, lastName : lastName}};
+          return state;
+      }
+
       case ActionTypes.USER_LOGOUT: {
           return {...state, isLoading: false, isLogoutLoading: true}
       }

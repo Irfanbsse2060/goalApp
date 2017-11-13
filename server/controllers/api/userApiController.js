@@ -5,7 +5,7 @@ import crypto from 'crypto'
 // src
 import { encrypt, decrypt } from '../../utils/encryptionUtils'
 import { ensureAnonymity, rejectRequest, caughtError } from '../../utils'
-import { findUserByRegistrationToken, isActiveUser, findUserByToken, updateUser, findUserByID, findUserByEmail,findAllUsersGoals,findUserGoals } from '../../managers/userManager'
+import { findUserByRegistrationToken, isActiveUser, findUserByToken, updateUser, findUserByID, findUserByEmail,findAllUsersGoals,findUserGoals,changeUserName} from '../../managers/userManager'
 import { findRoleById } from '../../managers/roleManager'
 import { findUserAccountTypeById } from '../../managers/userAccountTypeManager'
 import { findTimeZoneById } from '../../managers/timeZoneManager'
@@ -314,6 +314,36 @@ router.post('/api/users/reset-password', (req, res) => {
             }
         })
 })
+
+
+router.post('/api/users/change-username', (req, res) => {
+    const { body } = req
+    if ( !body ) {
+        rejectRequest('Missing request body', res)
+        return
+    }
+    const {firstName,lastName,userId} = body;
+    console.log("change username api has been called")
+    console.log(firstName)
+    console.log(lastName)
+    console.log(userId);
+    changeUserName(firstName,lastName,userId).then((result)=>{
+        console.log(result);
+        if(result[0] == 1)
+            res
+                .status(200)
+                .send({result:true})
+        else res
+            .status(400)
+            .send({
+                message : 'error occured'
+            })
+    });
+
+
+
+})
+
 
 router.post('/api/users/verify-account', (req, res) => {
     const { body } = req
