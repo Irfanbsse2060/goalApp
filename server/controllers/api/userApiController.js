@@ -424,8 +424,8 @@ router.post('/api/users/change-password',authorizePath,(req,res) => {
     }
 
     const {user}= req;
-    const {password,confirmPassword } = body
-    if ( !user || !password|| !confirmPassword ) {
+    const {oldPassword,password,confirmPassword } = body
+    if ( !user || !password|| !confirmPassword || !oldPassword) {
         rejectRequest('Missing required arguments', res)
         return
     }else if (password !== confirmPassword) {
@@ -437,16 +437,26 @@ router.post('/api/users/change-password',authorizePath,(req,res) => {
     findUserByID(user.id)
         .then(user => {
             if (user) {
-                const encryptedPassword = encrypt(password)
-                user.password = encryptedPassword
-                updateUser(user)
-                    .then(() => {
-                        res
-                            .status(200)
-                            .send({
-                                message: 'Password has been changed.'
-                            })
-                    })
+
+                const decryptedPassword = decrypt(user.password)
+                if(decryptedPassword !== oldPassword)
+                {
+                    rejectRequest('Old Password is incorrect.', res)
+                }
+                else {
+                    const encryptedPassword = encrypt(password)
+                    user.password = encryptedPassword
+                    updateUser(user)
+                        .then(() => {
+                            res
+                                .status(200)
+                                .send({
+                                    message: 'Password has been changed.'
+                                })
+                        })
+                }
+
+
             } else {
                 res
                     .status(400)
