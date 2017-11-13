@@ -4,6 +4,7 @@ import crypto from 'crypto'
 
 // src
 import { encrypt, decrypt } from '../../utils/encryptionUtils'
+import {authorizePath} from '../../utils/authUtils'
 import { ensureAnonymity, rejectRequest, caughtError } from '../../utils'
 import { findUserByRegistrationToken, isActiveUser, findUserByToken, updateUser, findUserByID, findUserByEmail,findAllUsersGoals,findUserGoals } from '../../managers/userManager'
 import { findRoleById } from '../../managers/roleManager'
@@ -409,5 +410,59 @@ router.post('/api/users/resend-activation', (req, res) => {
             }
         })
 })
+
+
+
+// for changing password
+router.post('/api/users/change-password',authorizePath,(req,res) => {
+
+    const {body} = req;
+
+    if(!body){
+        rejectRequest('Missing request body', res)
+        return;
+    }
+
+    const {user}= req;
+    const {password,confirmPassword } = body
+    if ( !user || !password|| !confirmPassword ) {
+        rejectRequest('Missing required arguments', res)
+        return
+    }else if (password !== confirmPassword) {
+        rejectRequest('Password and Confirm Password does not match', res)
+        return
+    }
+
+
+    findUserByID(user.id)
+        .then(user => {
+            if (user) {
+                const encryptedPassword = encrypt(password)
+                user.password = encryptedPassword
+                updateUser(user)
+                    .then(() => {
+                        res
+                            .status(200)
+                            .send({
+                                message: 'Password has been changed.'
+                            })
+                    })
+            } else {
+                res
+                    .status(400)
+                    .send({
+                        message: 'User does not exist'
+                    })
+            }
+        })
+
+
+
+
+
+
+})
+
+
 
 export default router

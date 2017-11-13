@@ -56,8 +56,10 @@ export const authorizePath = (req, res, next) => {
   if (!user) {
     handleAuthError(req, res)
   }
+  else
+      next()
 
-  next()
+
 }
 
 export const ensureAuthorization = authorizePath
