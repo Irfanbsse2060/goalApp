@@ -31,29 +31,22 @@ const PageUserProfileInner = (props) =>{
             onClick={handleUpdateUserName}
         />,
     ];
-
-    const ChangePasswrodActions = [
-        <FlatButton
-            label="Cancel"
-            primary={true}
-        />,
-        <FlatButton
-            label="Update"
-            primary={true}
-        />,
-    ];
-
     debugger;
     return(
         <div>
             <div className="row">
                 <DocumentTitle title={`${firstName} ${lastName} - Goal App`}/>
-                <div className="col-lg-2">
-                    <List>
-                        <ListItem primaryText="Change Name"  onTouchTap={handleOpenChangeNameDialog}/>
-                        {/*<ListItem primaryText="Change Passowrd" />*/}
-                        <Link to="/changePassword">Change Password</Link>
-                    </List>
+                <div className="col-lg-2 button_style">
+                        {/*<ListItem primaryText="Change Name"  onTouchTap={handleOpenChangeNameDialog}/>
+                        <Link to="/changePassword">Change Password</Link>*/}
+                   <List>
+                       <ListItem>
+                    <button type="button" style={{width : 150}} onClick={handleOpenChangeNameDialog}>Change Name</button>
+                       </ListItem>
+                       <ListItem>
+                    <button type="button" className="button_style"><Link  to="/changePassword">Change Password</Link></button>
+                       </ListItem>
+                   </List>
                     <Dialog
                         title="Change Name"
                         actions={ChangeNameActions}
@@ -78,17 +71,6 @@ const PageUserProfileInner = (props) =>{
                             multiLine
                             fullWidth
                         />
-                    </Dialog>
-                    <Dialog
-                        title="Change Password"
-                        actions={ChangePasswrodActions}
-                        modal={false}
-                        open={false}
-                    >
-                        <div className="form-group">
-                            <label htmlFor="password">Password</label>
-                                <input type="password" className="form-control" name="password" value="sdfdf" />
-                        </div>
                     </Dialog>
                 </div>
                 <div className="col-lg-8">

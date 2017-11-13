@@ -55,6 +55,11 @@ const PageChangePasswordInner = props => {
                   }
                 </div>
               </div>
+           {/*   <div className="additional-info">
+                <Link to="/login">Login</Link>
+                <span className="divider-h" />
+                <Link to="/register">Sign Up</Link>
+              </div>*/}
             </div>
           </div>
         </QueueAnim>

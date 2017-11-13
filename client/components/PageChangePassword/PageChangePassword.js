@@ -2,6 +2,7 @@
 import React from 'react'
 import {reduxForm} from 'redux-form'
 import {connect} from 'react-redux'
+import {push} from 'react-router-redux'
 import PageChangePasswordInner from './PageChangePasswordInner'
 import PageLoading from '../PageLoading'
 import {changePassword} from '../../actions/entities/users'
@@ -24,7 +25,7 @@ const validate = values => {
 
     if (!values.newPassword || !values.newPassword.trim() === '') {
         if (values.newPassword) {
-            errors.newPassword = 'Enternew password'
+            errors.newPassword = 'Enter new password'
             hasErrors = true
         } else {
             errors.newPassword = 'Missing New password field'
@@ -76,9 +77,11 @@ const mapStateToProps = (state,ownProps) =>{
 @bindForm({
   onSubmit: (values, dispatch, props) => {
     const {oldPassword, newPassword,confirmNewPassword } = values
-
     return dispatch(changePassword(oldPassword, newPassword,confirmNewPassword))
     .then(action => {
+        debugger;
+        dispatch(push('/userProfile'))
+
       return action
     })
   }
